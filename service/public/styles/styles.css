@@ -33,10 +33,20 @@
   -webkit-text-fill-color: white; /* Will override color (regardless of order) */
   -webkit-text-stroke-width: 1.1px;
   -webkit-text-stroke-color: black;
-  background: linear-gradient(90deg,black 50%, white 50%);
+  background: linear-gradient(90deg,black 40%, white 40%);
   
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+.Colored-Star-rating{
+    color: #525252;
+    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1.1px;
+    -webkit-text-stroke-color: #525252;
+    background: linear-gradient(90deg,#525252 70%, white 70%);
+    
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 .one-review-Content{
     width: 90%;
@@ -95,14 +105,109 @@
 }
 .review-buttons-type{
     padding: 22px;
-    background-color: white;
     border: 1px black solid;
+    background: linear-gradient(to left, white 50%, #525252 50%);
+    background-size: 200% 100%;
+    background-position:right bottom;
+    transition:all 0.5s ease;
     margin-right: 18px;
     align-items: center;
+}
+.review-buttons-type:hover{
+    background-position:left bottom;
+    color:white;
 }
 .reviews-buttons-space{
     margin-top: 25px;
 }
+#Reviews-data-container{
+    margin-top: 30px;
+}
 #Rating-tab-Reviews{
+        color: #525252 ;
+        margin-top: 15px;
+}
+#Rate-Cacul-with-stars{
+    margin: auto;
+    text-align: justify;
+   
+}
+
+
+.Stars-mini-tab-rating{
+    font-size: 12px;
+    margin-top: -14px;
+    margin-left: 10px;
+}
+
+#rating-perceentage-para{
+    margin-top: 40px;
+    font-size: 14px;
+    color: #525252;
+    margin-bottom: 25px;
+}
+
+.Start-button-rating-tab{
+    font-size: 13px;
+    font-weight: 10;
+    margin-left: -8px;
+    color: #525252;
+    text-decoration: underline;
+
     
+}
+
+.Stars-percentage-bar{
+    width: 70%;
+    height: 7px;
+    margin-top: 15px;
+}
+
+#Stars-percentage-bar-5{
+    background: linear-gradient(90deg,#525252 30%, #EBEBEB 30%);
+}
+
+#Stars-percentage-bar-4{
+
+    background: linear-gradient(90deg,#525252 10%, #EBEBEB 10%);
+
+}
+#Stars-percentage-bar-3{
+
+    background: linear-gradient(90deg,#525252 40%, #EBEBEB 40%);
+
+}
+#Stars-percentage-bar-2{
+    background: linear-gradient(90deg,#525252 70%, #EBEBEB 70%);
+
+}
+
+#Stars-percentage-bar-1{
+    background: linear-gradient(90deg,#525252 50%, #EBEBEB 50%);
+}
+
+.size-cursor-rate{
+    margin-top: 40px;
+    font-size: 14px;
+    font-weight: 10;
+    margin-bottom: 10px;
+    margin-left: -8px;
+}
+
+.bar-for-cursor{
+    width: 28%;
+    height: 5px;
+    margin-left: 8px;
+    background:#EBEBEB ;
+    display: block;
+}
+
+.size-caract-font{
+    margin-top: 10px;
+    font-size: 12px;
+    color: #525252;
+    font-weight: 20;
+}
+.size-scrollar-bar-container{
+    margin-top: 5px;
 }
