@@ -1,12 +1,31 @@
 import React from 'react'
 import Review from "./review.jsx";
-
+import $ from 'jquery'
+import {token} from '../../../config'
 class Reviews extends React.Component{
     constructor(props){
         super(props)
+        this.state={
+            reviews:[],
+            ReviewsNumber:2
+        }
     }
-
+    componentDidMount(){
+        $.ajax({
+            url:'https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/reviews?product_id=11002',
+            type:'GET',
+            contentType:'application/json',
+            headers:{"Authorization":token},
+            success:(Data)=>{
+                console.log(Data)
+                this.setState({reviews:Data.results})
+            }
+        })
+    }
     render(){
+        const {reviews,ReviewsNumber} = this.state
+        console.log(ReviewsNumber)
+        console.log(reviews)
         return(
             <div className="container">
                 <h2 style={{fontSize:'20px',fontWeight:'100'}}>Rating & Reviews</h2>
@@ -44,6 +63,9 @@ class Reviews extends React.Component{
 
                                     </div>
                                     <div className='row size-scrollar-bar-container'>
+                                    <span id='down-sort-size'>
+                                        <i className="fas fa-sort-down"></i>
+                                        </span>
                                         <div className='col'>
                                              <span className='size-caract-font' style={{marginLeft:'-8px'}}>Too small</span>
                                         </div>
@@ -64,6 +86,9 @@ class Reviews extends React.Component{
 
                                     </div>
                                     <div className='row size-scrollar-bar-container'>
+                                        <span id='down-sort-comfort'>
+                                        <i className="fas fa-sort-down"></i>
+                                        </span>
                                         <div className='col'>
                                              <span className='size-caract-font' style={{marginLeft:'-8px'}}>Poor</span>
                                         </div>
@@ -80,12 +105,11 @@ class Reviews extends React.Component{
                             </div>
                             <div className="col">
                                     <div className='row Reviews-tab'>
-                                        <p className='reviews-tab-title'>248 reviews, Sorted By Relevence</p>
-                                        <Review />
-                                        <Review />
+                                        <p className='reviews-tab-title'>{reviews.length} reviews, Sorted By Relevence</p>
+                                        {reviews.map((e,i)=> <Review key={i} review = {e} /> )}
                                     </div>
                                     <div className='row reviews-buttons-space'>
-                                        <button className='review-buttons-type'>More Reviews</button>
+                                        <button className='review-buttons-type' onClick={()=>this.setState({ReviewsNumber:ReviewsNumber+2})}>More Reviews</button>
                                         <button className='review-buttons-type'>Add A Review <span style={{marginLeft:'9px',fontSize:'22px'}}>+</span></button>
                                     </div>
                                     

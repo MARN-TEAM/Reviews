@@ -211,3 +211,18 @@
 .size-scrollar-bar-container{
     margin-top: 5px;
 }
+
+#down-sort-comfort{
+    position: absolute;
+    font-size: 27px;
+    margin-top: -25px;
+    margin-left: 40%;
+}
+
+
+#down-sort-size{
+    position: absolute;
+    font-size: 27px;
+    margin-top: -25px;
+    margin-left: 70%;
+}
