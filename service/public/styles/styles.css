@@ -1,0 +1,92 @@
+#app{
+    width: 940px;
+    background-color: white;
+    margin: auto;
+    font-family: "adobe-clean", sans-serif;
+    color :#5C5C5C;
+    line-height: 18.4px;
+}
+
+.Reviews-tab .reviews-tab-title{
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 30px;
+}
+
+.one-Review-date{
+    float:right;
+    font-size: 14px;
+}
+.one-review-title{
+    margin-top: 25px;
+    font-size: 17px;
+    font-weight: 550;
+}
+.one-Review-stars{
+    margin-left: -16px;
+    font-size: 14px;
+    color: black;
+}
+.Colored-Star-review{
+    color: black;
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1.1px;
+  -webkit-text-stroke-color: black;
+  background: linear-gradient(90deg,black 50%, white 50%);
+  
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.one-review-Content{
+    width: 90%;
+    margin-top: 20px;
+    font-size: 13px;
+}
+
+.one-review-Helpful{
+    margin-top: 15px;
+    font-size: 13px;
+    text-align: justify;
+    line-height: 20px;
+}
+
+.report-button-one-review{
+    font-size: 13px;
+    color :#5C5C5C;
+    text-decoration: underline;
+    margin-top: -5px;
+    
+}
+.Yes-button-one-review{
+    font-size: 13px;
+    color :#5C5C5C;
+    margin-left: -8px;
+    text-decoration: underline;
+    margin-bottom: -10px;
+    
+}
+.Vertical-Line{
+    border-left: 1px solid #5C5C5C;
+    height: 17px;
+    margin-bottom: -3px;
+    display: inline-block;
+}
+
+.Count-Helpful-Yes{
+    font-size: 10px;
+    display: inline-block;
+}
+
+
+
+
+.Reviews-seperator{
+    margin-left: -16px;
+    width: 105%;
+}
+.Review-recomendation{
+    
+}
+#Rating-tab-Reviews{
+    
+}
