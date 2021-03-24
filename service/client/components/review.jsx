@@ -28,7 +28,7 @@ class Review extends React.Component{
                             </div>
                 </div>
                 <div className='row Review-recomendation'>
-                    <i class="fas fa-check"></i><p> I recommend this product</p>
+                    <i class="fas fa-check Checked-recomendation-icon"></i><p> I recommend this product</p>
                 </div>
                 <div className='row'>
                             <div className='col' className='one-review-Helpful'>
@@ -36,6 +36,7 @@ class Review extends React.Component{
                             </div>
                 </div>
                 <hr  color="black" width='100%' className='Reviews-seperator' />
+                
             </div>
         )
     }

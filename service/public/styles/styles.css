@@ -21,6 +21,7 @@
     margin-top: 25px;
     font-size: 17px;
     font-weight: 550;
+    float: left;
 }
 .one-Review-stars{
     margin-left: -16px;
@@ -44,7 +45,7 @@
 }
 
 .one-review-Helpful{
-    margin-top: 15px;
+    margin-top: 5px;
     font-size: 13px;
     text-align: justify;
     line-height: 20px;
@@ -85,7 +86,22 @@
     width: 105%;
 }
 .Review-recomendation{
-    
+    font-size: 13px;
+    margin-top: 25px;
+}
+
+.Checked-recomendation-icon{
+    margin-right: 7px;
+}
+.review-buttons-type{
+    padding: 22px;
+    background-color: white;
+    border: 1px black solid;
+    margin-right: 18px;
+    align-items: center;
+}
+.reviews-buttons-space{
+    margin-top: 25px;
 }
 #Rating-tab-Reviews{
     
