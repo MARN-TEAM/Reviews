@@ -1,6 +1,7 @@
 import React from 'react'
 import Review from "./review.jsx";
 import $ from 'jquery'
+import { prefix } from 'inline-style-prefixer'
 import {token} from '../../../config'
 class Reviews extends React.Component{
     constructor(props){
@@ -24,18 +25,18 @@ class Reviews extends React.Component{
     }
     componentDidMount(){
         $.ajax({
-            url:'https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/reviews?product_id=11007',
+            url:'https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/reviews?product_id=11015',
             type:'GET',
             contentType:'application/json',
             headers:{"Authorization":token},
             success:(Data)=>{
-
+                console.log(Data)
                 this.setState({reviews:Data.results})          
                  
             }
         })
         $.ajax({
-            url:'https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/reviews/meta?product_id=11007',
+            url:'https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/reviews/meta?product_id=11015',
             type:'GET',
             contentType:'application/json',
             headers:{"Authorization":token},
@@ -75,14 +76,15 @@ class Reviews extends React.Component{
                         return(<i className="fa fa-star" key={i}></i>)
                     }else {
                         return(
-<i className="fa fa-star Colored-Star-rating" key={i} 
-style={{background: "linear-gradient(90deg,#525252 "+Number(e*100)+"%, white "+Number(e*100)+"%)",
-        BackgroundClip:'text',
-        TextFillColor:'transparent',
-        WebkitBackgroundClip: "text", 
-        WebkitTextFillColor: "transparent",
-        color:'transparent'}}>
-</i>)
+<div
+className="fa fa-star Colored-Star-rating" 
+style={{backgroundImage: "linear-gradient(90deg,#525252 "+Number(e*100)+"%, white "+Number(e*100)+"%)",
+BackgroundClip:'text',
+TextFillColor:'transparent',
+WebkitBackgroundClip: "text", 
+WebkitTextFillColor: "transparent",
+WebkitFillColor:'transparent'}}>
+</div>)
                     }
                 } )}
         </div>
@@ -101,7 +103,7 @@ style={{background: "linear-gradient(90deg,#525252 "+Number(e*100)+"%, white "+N
                             <div id='Rating-tab-Reviews'>
                                 <div className='row'>
                                    <div className='col-3'><span style={{fontSize:'60px',fontWeight:'600'}}>{averageRate}</span> </div> 
-                                   <div className='col-6 Stars-mini-tab-rating' >{this.RatingStars(averageRate)}</div>
+                                   <div className='col-md-6 Stars-mini-tab-rating' >{this.RatingStars(averageRate)}</div>
                                 </div>
                                 <div className='row'>
                                         <p id='rating-perceentage-para'>{reromendedpercent} % of reviews recommend this product</p>
@@ -276,7 +278,13 @@ style={{background: "linear-gradient(90deg,#525252 "+Number(e*100)+"%, white "+N
                             </div>
                             <div className="col">
                                     <div className='row Reviews-tab'>
-                                        <p className='reviews-tab-title'>{reviews.length} reviews, Sorted By Relevence</p>
+                                        <p className='reviews-tab-title'>{reviews.length} reviews, Sorted By 
+                                            <select class="form-select Reviews-sot-select" aria-label="Default select example" >
+                                                <option >relevence </option>
+                                                <option>Date</option>
+                                            </select>
+                                            
+                                        </p>
                                         {(ReviewsNumber >2)? <div className='box box-two'>
                                         {reviews.map((e,i)=> (i<ReviewsNumber) ? <Review key={i} review = {e} RatingStars={this.RatingStars} /> : '' )}
                                         </div>:reviews.map((e,i)=> (i<ReviewsNumber) ? <Review key={i} review = {e} RatingStars={this.RatingStars} /> : '' )}

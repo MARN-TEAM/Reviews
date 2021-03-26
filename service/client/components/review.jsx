@@ -2,6 +2,7 @@ import React from 'react'
 import $ from 'jquery'
 import {token} from '../../../config'
 
+
 class Review extends React.Component{
     constructor(props){
         super(props)
@@ -50,7 +51,7 @@ class Review extends React.Component{
             return(
                 <div className='container one-Review-card'>
                     <div className='row'>
-                            <div className=' one-Review-stars col-sm ' >
+                            <div className=' one-Review-stars col-md ' >
                             {this.props.RatingStars(rating)}
                             </div>
                             <div className='col-sm' className='one-Review-date'>
@@ -71,6 +72,18 @@ class Review extends React.Component{
     {     (recommend) ?<div className='row Review-recomendation'>
                         <i className="fa fa-check Checked-recomendation-icon"></i><p> I recommend this product</p>
                     </div>:''}
+                    {(!response) ? '':<div className='Review-response'>
+                    <div className='row' style={{color:'#525252',fontSize:'13px',fontWeight:'600'}}>
+                        Response:
+                    </div> 
+                    <div className='row' style={{fontSize:'13px',marginTop:'10px'}}>
+                            {response}
+                    </div> 
+                    </div>}
+                    {(photos.length>0)?<div className='row'>
+                        {photos.map((e,i)=><div className='col-md-3 image'><img  style={{margin:'5px'}} src={e.url} width='60px' height="60px"  /></div>)}
+                    </div>:''}
+                    
                     <div className='row'>
                                 <div className='col' className='one-review-Helpful'>
                         Helpful?<button type="button" className={(ClickedHelpful ) ? "btn btn-link Yes-button-one-review disabled":"btn btn-link Yes-button-one-review"} onClick={()=>this.UpdateHelpfulness()} aria-disabled={(ClickedHelpful ) ? 'true':'false'} >Yes<p className='Count-Helpful-Yes'>({helpfuls})</p></button><div className="Vertical-Line"></div><button type="button" className="btn btn-link report-button-one-review" onClick={()=>this.ReportReview()}>Report</button>

@@ -1,5 +1,5 @@
 #app{
-    width: 940px;
+    width: 60%;
     background-color: white;
     margin: auto;
     font-family: "adobe-clean", sans-serif;
@@ -12,6 +12,8 @@
     font-size: 15px;
     margin-bottom: 30px;
 }
+
+
 
 .one-Review-date{
     float:right;
@@ -44,6 +46,9 @@
     -webkit-text-stroke-width: 1.1px;
     -webkit-text-stroke-color: #525252;
 
+    
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 .one-review-Content{
     width: 90%;
@@ -160,24 +165,7 @@
     margin-top: 15px;
 }
 
-#Stars-percentage-bar-5{
-    background: linear-gradient(90deg,#525252 30%, #EBEBEB 30%);
-}
 
-
-#Stars-percentage-bar-3{
-
-    background: linear-gradient(90deg,#525252 40%, #EBEBEB 40%);
-
-}
-#Stars-percentage-bar-2{
-    background: linear-gradient(90deg,#525252 70%, #EBEBEB 70%);
-
-}
-
-#Stars-percentage-bar-1{
-    background: linear-gradient(90deg,#525252 50%, #EBEBEB 50%);
-}
 
 .size-cursor-rate{
     margin-top: 40px;
@@ -230,7 +218,12 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
+.Review-response{
+    margin-left: -15px;
+    background-color: #EBEBEB;
+    padding: 19px;
+    padding-left: 29px;
+}
 .box {
     width: 100%;
     height: 600px;
@@ -239,3 +232,25 @@
   .box-two {
     overflow: auto;
   }
+
+  @media screen and (max-width:900px){
+    .Stars-mini-tab-rating{
+        margin-top: 29px;
+    }
+}
+
+
+.Reviews-sot-select{
+    border: none;
+    border: 0;
+    
+    color:#525252;
+    font-weight: 600;
+    font-size: 15px;
+    border-bottom: 2px #525252 solid;
+    margin-left: 4px;
+}
+
+.Reviews-sot-select:focus {
+    outline:0;
+}
