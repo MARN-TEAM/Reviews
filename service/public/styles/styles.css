@@ -43,10 +43,7 @@
     -webkit-text-fill-color: white; /* Will override color (regardless of order) */
     -webkit-text-stroke-width: 1.1px;
     -webkit-text-stroke-color: #525252;
-    background: linear-gradient(90deg,#525252 70%, white 70%);
-    
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+
 }
 .one-review-Content{
     width: 90%;
@@ -167,11 +164,7 @@
     background: linear-gradient(90deg,#525252 30%, #EBEBEB 30%);
 }
 
-#Stars-percentage-bar-4{
 
-    background: linear-gradient(90deg,#525252 10%, #EBEBEB 10%);
-
-}
 #Stars-percentage-bar-3{
 
     background: linear-gradient(90deg,#525252 40%, #EBEBEB 40%);
@@ -224,5 +217,25 @@
     position: absolute;
     font-size: 27px;
     margin-top: -25px;
-    margin-left: 70%;
+    
 }
+
+.Colored-Star-rating-empty{
+    color: black;
+    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #525252;
+    background: linear-gradient(90deg,#525252 0%, white 0%);
+    
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.box {
+    width: 100%;
+    height: 600px;
+    margin: 0 20px 0 0;
+  }
+  .box-two {
+    overflow: auto;
+  }
