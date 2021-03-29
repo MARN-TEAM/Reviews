@@ -19,8 +19,40 @@ class Reviews extends React.Component{
             charachts:{}
         }
     }
-    sortChange(){
-        reviews = this.state.reviews
+    sortChange(element){
+        console.log(element)
+        var  reviews = this.state.reviews
+        if(element == 'date' || element == 'helpfulness'){
+        for(var i=0;i<reviews.length;i++){
+            var j=0;
+            var search = true
+            while(j<i && search == true){
+                if(reviews[j][element] < reviews[i][element] ){
+                    reviews.splice(j,0,reviews[i]);
+                    reviews.splice(i+1,1)
+                    search = false
+                }
+                j++;
+            }
+        }
+       
+        }else{
+            
+        for(var i=0;i<reviews.length;i++){
+            var j=0;
+            var search = true
+            while(j<i && search == true){
+                if(( reviews[j].date < reviews[i].date  && new Date(reviews[i].date) - new Date(reviews[j].date) < 3600 * 1000 * 24 * 90)  || reviews[j].helpfulness < reviews[i].helpfulness  ){
+                    reviews.splice(j,0,reviews[i]);
+                    reviews.splice(i+1,1)
+                    search = false
+                }
+                j++;
+            }
+        }
+        }
+        this.setState({reviews:reviews})
+        
 
     }
     componentDidMount(){
@@ -94,6 +126,7 @@ WebkitFillColor:'transparent'}}>
     render(){
         
         const {reviews,ReviewsNumber,averageRate,reromendedpercent,percentfive,percentfour,percentthree,percenttwo,percentone,charachts} = this.state
+        console.log(reviews)
         return(
             <div className="container">
                 <h2 style={{fontSize:'20px',fontWeight:'100'}}>Rating & Reviews</h2>
@@ -279,9 +312,10 @@ WebkitFillColor:'transparent'}}>
                             <div className="col">
                                     <div className='row Reviews-tab'>
                                         <p className='reviews-tab-title'>{reviews.length} reviews, Sorted By 
-                                            <select class="form-select Reviews-sot-select" aria-label="Default select example" >
-                                                <option >relevence </option>
-                                                <option>Date</option>
+                                            <select onChange={(e)=>this.sortChange(e.target.value)} class="form-select Reviews-sot-select" aria-label="Default select example" >
+                                                <option >Relevant </option>
+                                                <option value='date' >Newest</option>
+                                                <option value='helpfulness' >Helpful</option>
                                             </select>
                                             
                                         </p>

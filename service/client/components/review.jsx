@@ -21,6 +21,7 @@ class Review extends React.Component{
             type:'PUT',
             headers:{"Authorization":token},
             success:()=>{
+                this.props.review.helpfulness ++
                 this.setState({helpfuls:this.state.helpfuls + 1})
                 this.setState({ClickedHelpful:true})
             }
@@ -38,6 +39,18 @@ class Review extends React.Component{
             }
         })
         
+    }
+    PreviewPhoto(imgLink){
+        var modal = document.getElementById("Modal-image-review-preview");
+        var modalImg = document.getElementById("img-modal-preview");
+        modal.style.display = "block";
+        modalImg.src = imgLink;
+        
+    }
+    closeImagePreview(e){
+        if(e.target.id != 'img-modal-preview'){
+            document.getElementById("Modal-image-review-preview").style.display = "none"
+        }
     }
 
     render(){
@@ -81,16 +94,19 @@ class Review extends React.Component{
                     </div> 
                     </div>}
                     {(photos.length>0)?<div className='row'>
-                        {photos.map((e,i)=><div className='col-md-3 image'><img  style={{margin:'5px'}} src={e.url} width='60px' height="60px"  /></div>)}
+                        {photos.map((e,i)=><div className='col-md-3 image'><img className='mage-review-style' style={{margin:'5px',borderRadius:'4%'}} src={e.url} onClick={()=>this.PreviewPhoto(e.url)} width='80px' height="80px"  /></div>)}
                     </div>:''}
                     
                     <div className='row'>
                                 <div className='col' className='one-review-Helpful'>
-                        Helpful?<button type="button" className={(ClickedHelpful ) ? "btn btn-link Yes-button-one-review disabled":"btn btn-link Yes-button-one-review"} onClick={()=>this.UpdateHelpfulness()} aria-disabled={(ClickedHelpful ) ? 'true':'false'} >Yes<p className='Count-Helpful-Yes'>({helpfuls})</p></button><div className="Vertical-Line"></div><button type="button" className="btn btn-link report-button-one-review" onClick={()=>this.ReportReview()}>Report</button>
+                        Helpful?<button type="button" className={(ClickedHelpful ) ? "btn btn-link Yes-button-one-review disabled":"btn btn-link Yes-button-one-review"} onClick={()=>this.UpdateHelpfulness()} aria-disabled={(ClickedHelpful ) ? 'true':'false'} >Yes<p className='Count-Helpful-Yes'>({helpfulness})</p></button><div className="Vertical-Line"></div><button type="button" className="btn btn-link report-button-one-review" onClick={()=>this.ReportReview()}>Report</button>
                                 </div>
                     </div>
                     <hr  color="black" width='100%' className='Reviews-seperator' />
-                    
+                    <div id="Modal-image-review-preview" class="modal-preview-container" onClick={(e)=>this.closeImagePreview(e)}>
+                        <span class="close-review-image-previews" >&times;</span>
+                        <img class="modal-content-image-preview" id="img-modal-preview" />
+                        </div>
                 </div>
             )
         }else{
