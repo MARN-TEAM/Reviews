@@ -54,7 +54,7 @@ class Review extends React.Component{
     }
 
     render(){
-        const {body,date,helpfulness,photos,rating,recommend,response,review_id,reviewer_name,summary} = this.props.review
+        const {body,date,helpfulness,photos,rating,recommend,response,review_id,reviewer_name,summary,email} = this.props.review
         const {helpfuls,ClickedHelpful,reported} = this.state
         let d = new Date(date);
         let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
@@ -68,7 +68,7 @@ class Review extends React.Component{
                             {this.props.RatingStars(rating)}
                             </div>
                             <div className='col-sm' className='one-Review-date'>
-                                        {reviewer_name}, {da +' '+mo + ', '+ye}
+                                      {(email) ? <i class="fa fa-check-circle"></i> :''}  {reviewer_name}, {da +' '+mo + ', '+ye}
                             </div>
                     </div>
                     <div className='row'>
@@ -94,7 +94,7 @@ class Review extends React.Component{
                     </div> 
                     </div>}
                     {(photos.length>0)?<div className='row'>
-                        {photos.map((e,i)=><div className='col-md-3 image'><img className='mage-review-style' style={{margin:'5px',borderRadius:'4%'}} src={e.url} onClick={()=>this.PreviewPhoto(e.url)} width='80px' height="80px"  /></div>)}
+                        {photos.map((e,i)=><div key={i} className='col-md-3 image'><img className='mage-review-style' style={{margin:'5px',borderRadius:'4%'}} src={e.url} onClick={()=>this.PreviewPhoto(e.url)} width='80px' height="80px"  /></div>)}
                     </div>:''}
                     
                     <div className='row'>
@@ -103,9 +103,9 @@ class Review extends React.Component{
                                 </div>
                     </div>
                     <hr  color="black" width='100%' className='Reviews-seperator' />
-                    <div id="Modal-image-review-preview" class="modal-preview-container" onClick={(e)=>this.closeImagePreview(e)}>
-                        <span class="close-review-image-previews" >&times;</span>
-                        <img class="modal-content-image-preview" id="img-modal-preview" />
+                    <div id="Modal-image-review-preview" className="modal-preview-container" onClick={(e)=>this.closeImagePreview(e)}>
+                        <span className="close-review-image-previews" >&times;</span>
+                        <img className="modal-content-image-preview" id="img-modal-preview" />
                         </div>
                 </div>
             )

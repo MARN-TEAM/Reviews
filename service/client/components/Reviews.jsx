@@ -3,6 +3,8 @@ import Review from "./review.jsx";
 import $ from 'jquery'
 import { prefix } from 'inline-style-prefixer'
 import {token} from '../../../config'
+import ReactStars from "react-rating-stars-component";
+
 class Reviews extends React.Component{
     constructor(props){
         super(props)
@@ -16,11 +18,21 @@ class Reviews extends React.Component{
             percentthree:0,
             percenttwo:0,
             percentone:0,
-            charachts:{}
+            charachts:{},
+            photosNum:['0'],
+            name:'',
+            email:'',
+            summary:'',
+            body:'',
+            rate:0,
+            recommendThis:false,
+            photos:['','',''],
+            product_id:11007,
+            err:''
         }
+        this.ratingChanged = this.ratingChanged.bind(this)
     }
     sortChange(element){
-        console.log(element)
         var  reviews = this.state.reviews
         if(element == 'date' || element == 'helpfulness'){
         for(var i=0;i<reviews.length;i++){
@@ -55,9 +67,9 @@ class Reviews extends React.Component{
         
 
     }
-    componentDidMount(){
+    Initialdata(){
         $.ajax({
-            url:'https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/reviews?product_id=11015',
+            url:'https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/reviews?product_id='+this.state.product_id,
             type:'GET',
             contentType:'application/json',
             headers:{"Authorization":token},
@@ -68,13 +80,11 @@ class Reviews extends React.Component{
             }
         })
         $.ajax({
-            url:'https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/reviews/meta?product_id=11015',
+            url:'https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/reviews/meta?product_id='+this.state.product_id,
             type:'GET',
             contentType:'application/json',
             headers:{"Authorization":token},
-            success:(Meta)=>{
-                console.log(Meta)
-                var CountReviews = Number(Meta.ratings[1]) + Number(Meta.ratings[2]) + Number(Meta.ratings[3]) + Number(Meta.ratings[4]) + Number(Meta.ratings[5])
+            success:(Meta)=>{                var CountReviews = Number(Meta.ratings[1]) + Number(Meta.ratings[2]) + Number(Meta.ratings[3]) + Number(Meta.ratings[4]) + Number(Meta.ratings[5])
                 var sumrating = Number(Meta.ratings[1])*1 + Number(Meta.ratings[2])*2 + Number(Meta.ratings[3])*3 + Number(Meta.ratings[4])*4 + Number(Meta.ratings[5])*5
                 this.setState({percentfive:(Meta.ratings[5]/CountReviews)*100,percentfour:(Meta.ratings[4]/CountReviews)*100,percentthree:(Meta.ratings[3]/CountReviews)*100,percenttwo:(Meta.ratings[2]/CountReviews)*100,percentone:(Meta.ratings[1]/CountReviews)*100})
                 if(sumrating && CountReviews){
@@ -87,6 +97,9 @@ class Reviews extends React.Component{
                 this.setState({charachts:Meta.characteristics})
             }
         })
+    }
+    componentDidMount(){
+        this.Initialdata()
         
     }
     RatingStars(averageRate){
@@ -108,7 +121,7 @@ class Reviews extends React.Component{
                         return(<i className="fa fa-star" key={i}></i>)
                     }else {
                         return(
-<div
+<div key={i}
 className="fa fa-star Colored-Star-rating" 
 style={{backgroundImage: "linear-gradient(90deg,#525252 "+Number(e*100)+"%, white "+Number(e*100)+"%)",
 BackgroundClip:'text',
@@ -123,10 +136,54 @@ WebkitFillColor:'transparent'}}>
 
         return Stars
     }
+
+    ratingChanged(rate){
+        this.setState({rate:rate})
+    }
+    RecomendValue(){
+        this.setState({recommendThis: !this.state.recommendThis})
+    }
+    PostData (){
+        const {product_id,name,email,summary,body,rate,recommendThis,photos} = this.state
+        
+        var Data = {
+            product_id:product_id,
+            name:name,
+            email:email,
+            recommend:recommendThis,
+            summary:summary,
+            rating:rate,
+            photos:photos,
+            body:body,
+            characteristics:{}
+
+        }
+        console.log(Data)
+        $.ajax({
+            url:'https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/reviews',
+            type:'POST',
+            data:JSON.stringify(Data),
+            contentType:'application/json',
+            headers:{"Authorization":token},
+            success:(Data)=>{
+                this.Initialdata()
+                this.setState({err:'clear'}) 
+                 
+            },
+            error:(err)=>{
+                this.setState({err:'Recheck'}) 
+            }
+        })
+    }
     render(){
         
-        const {reviews,ReviewsNumber,averageRate,reromendedpercent,percentfive,percentfour,percentthree,percenttwo,percentone,charachts} = this.state
-        console.log(reviews)
+        const {reviews,ReviewsNumber,averageRate,reromendedpercent,percentfive,percentfour,percentthree,percenttwo,percentone,charachts,photosNum,err} = this.state
+        var alert=''
+        if(err == 'Recheck'){
+            alert=<div className="alert alert-danger" role="alert" > Recheck Your Entries </div>
+        }else if(err=='clear'){
+            alert=<div className="alert alert-success" role="alert" > Review Submited</div>
+        }
         return(
             <div className="container">
                 <h2 style={{fontSize:'20px',fontWeight:'100'}}>Rating & Reviews</h2>
@@ -135,7 +192,7 @@ WebkitFillColor:'transparent'}}>
                             <div className="col col-xl-4">
                             <div id='Rating-tab-Reviews'>
                                 <div className='row'>
-                                   <div className='col-3'><span style={{fontSize:'60px',fontWeight:'600'}}>{averageRate}</span> </div> 
+                                   <div className='col-3'><span style={{fontSize:'70px',fontWeight:'600',marginLeft:'100%'}}>{averageRate}</span> </div> 
                                    <div className='col-md-6 Stars-mini-tab-rating' >{this.RatingStars(averageRate)}</div>
                                 </div>
                                 <div className='row'>
@@ -312,7 +369,7 @@ WebkitFillColor:'transparent'}}>
                             <div className="col">
                                     <div className='row Reviews-tab'>
                                         <p className='reviews-tab-title'>{reviews.length} reviews, Sorted By 
-                                            <select onChange={(e)=>this.sortChange(e.target.value)} class="form-select Reviews-sot-select" aria-label="Default select example" >
+                                            <select onChange={(e)=>{this.sortChange(e.target.value)}} className="form-select Reviews-sot-select" aria-label="Default select example" >
                                                 <option >Relevant </option>
                                                 <option value='date' >Newest</option>
                                                 <option value='helpfulness' >Helpful</option>
@@ -327,12 +384,92 @@ WebkitFillColor:'transparent'}}>
                                     </div>
                                     <div className='row reviews-buttons-space'>
                                        {(reviews.length > ReviewsNumber) ?<button className='review-buttons-type' onClick={()=>this.setState({ReviewsNumber:ReviewsNumber+2})}>More Reviews</button> : ''}
-                                        <button className='review-buttons-type'>Add A Review <span style={{marginLeft:'9px',fontSize:'22px'}}>+</span></button>
+                                        <button className='review-buttons-type' data-toggle="modal" data-target="#AddReview" >Add A Review <span style={{marginLeft:'9px',fontSize:'22px'}}>+</span></button>
                                     </div>
                                     
                             </div>
                     </div>
                 </div>
+                <div className="modal fade" id="AddReview" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog" role="document" >
+                            <div className="modal-content" >
+                            <div className="modal-header" style={{margin:'auto'}}>
+                                <h3 className="modal-title" id="exampleModalLabel">Write Your Review</h3><br />
+                            </div>
+                            <div className="modal-body">
+                                    <div className='review-post-container'>
+
+                                        <div className='Form-container '>
+                                            <div className='container'>
+                                                <div className='row'>
+                                                <div className='col-sm'>
+                                                <div className=" input-material">
+                                                <input type="text" className="form-control" id="name-field" value={this.state.name} onChange={(e)=>this.setState({name:e.target.value})} required ></input>
+                                                <label htmlFor="name-field">Name (*)</label>
+                                            </div>
+
+                                            <div className=" input-material">
+                                                <input type="text" className="form-control" id="email-field" value={this.state.email} onChange={(e)=>this.setState({email:e.target.value})}  ></input>
+                                                <label htmlFor="email-field">Email</label>
+                                            </div>
+
+                                            <div className=" input-material">
+                                                <input type="text" placeholder='Example: Best purchase ever!' className="form-control" id="summary-field" value={this.state.summary} onChange={(e)=>this.setState({summary:e.target.value})} required ></input>
+                                                
+                                            </div>
+
+
+                                            <div className=" input-material">
+                                                <textarea placeholder='Why did you like the product or not?' type="text" className="form-control" id="body-field" value={this.state.body} onChange={(e)=>this.setState({body:e.target.value})} required ></textarea>
+                                                <p style={{fontSize:'11px',textAlign:'left'}}>Minimum required characters left: [{(this.state.body.length <50) ? 50 - this.state.body.length : ' Minimum reached '}]</p>
+                                            </div>
+                                            
+                                                </div>
+                                                <div className='col-sm'>
+                                                <div className=" input-stars ">
+                                                <ReactStars
+                                                    count={5}
+                                                    onChange={this.ratingChanged}
+                                                    size={24}
+                                                    isHalf={false}
+                                                    emptyIcon={<i className="far fa-star"></i>}
+                                                    fullIcon={<i className="fa fa-star"></i>}
+                                                    activeColor="#f9ca24"
+                                                />
+                                                </div>
+
+                                            <div className=" input-stars" style={{marginLeft:'-80px'}}>
+                                                <div className="form-check" >
+                                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"  onChange={()=>this.RecomendValue()}/>
+                                                    <label className="form-check-label" htmlFor="flexCheckDefault" >
+                                                        I recommend This Product
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <label htmlFor="photo-field" style={{marginTop:'20px'}}>Photos </label><button className='btn btn-secondary' type='button' style={{marginLeft:'10px',fontSize:'8px',marginTop:'28px'}} onClick={(e)=>{photosNum.push('0') ;if(photosNum.length<3) {this.setState({photosNum:photosNum})}  else{this.setState({photosNum:photosNum}) ; e.target.disabled = true}  }}>Add Photo</button>
+                                            <div className=" input-photos" id="All-photos-review-div">
+                                               {photosNum.map((e,i)=> <input key={i} style={{marginBottom:'10px',fontSize:'14px'}} type="text" className="form-control" id="photo-field" placeholder='photo Link' value={this.state.photos[i]} onChange={(e)=>{var photosSt = this.state.photos;photosSt[i] = e.target.value ;  this.setState({photos:photosSt})}} required ></input>)} 
+                                                
+                                            </div>
+
+
+                                                </div>
+                                            </div>
+                                                </div>
+                                               
+                                            {alert}
+                                        </div>
+
+                                    </div>
+                            </div>
+                            <div className="modal-footer">
+                                
+                                <button type="button" className="btn btn-primary" style={{marginRight:'32%'}}  onClick={()=>this.PostData()}>Post Review</button>
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal" style={{float:'right'}}>Close</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
         )
     }

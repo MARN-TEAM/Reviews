@@ -123,11 +123,10 @@
     margin-top: 25px;
 }
 #Reviews-data-container{
-    margin-top: 30px;
+    margin-top: 10px;
 }
 #Rating-tab-Reviews{
         color: #525252 ;
-        margin-top: 15px;
 }
 #Rate-Cacul-with-stars{
     margin: auto;
@@ -138,12 +137,11 @@
 
 .Stars-mini-tab-rating{
     font-size: 12px;
-    margin-top: -14px;
-    margin-left: 10px;
+    margin-top: 25px;
+    margin-left: 20%;
 }
 
 #rating-perceentage-para{
-    margin-top: 40px;
     font-size: 14px;
     color: #525252;
     margin-bottom: 25px;
@@ -204,7 +202,7 @@
 #down-sort-size{
     position: absolute;
     font-size: 27px;
-    margin-top: -25px;
+    margin-top: -32px;
     
 }
 
@@ -233,9 +231,10 @@
     overflow: auto;
   }
 
-  @media screen and (max-width:900px){
+  @media screen and (max-width:768px){
     .Stars-mini-tab-rating{
-        margin-top: 29px;
+        margin-top: -7px;
+        margin-left: 23%;
     }
 }
 
@@ -326,3 +325,85 @@
   button{
       outline: none;
   }
+
+
+
+
+.review-post-container{
+    margin-top: -2em;
+}
+.Form-container{
+    margin: auto;
+    text-align: center;
+}
+
+.input-material {
+    position: relative;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: rgb(236, 240, 241,0.2);
+    border-radius: 2%; }
+.input-stars{
+    position: relative;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 2%; 
+    outline: none;
+}
+.input-photos{
+    position: relative;
+    margin-top: 5px;
+    margin-bottom: 3px;
+    background-color: white;
+    border-radius: 2%; 
+    outline: none;
+}
+.input-material label {
+    color: #b1bbc4;
+    font-size: 16px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 7px;
+    transition: 0.1s ease all;
+    -moz-transition: 0.1s ease all;
+    -webkit-transition: 0.1s ease all; 
+}
+
+.input-material .form-control {
+    border: none;
+    border-bottom: 2px solid #ced4da;
+    border-radius: 0px;
+    background: transparent;
+    padding-left: 5px;
+    box-shadow: none;
+ }
+.input-material .form-control:focus, .form-control[value]:not([value=""]) {
+    border-bottom-color: #525252;
+    color: black; 
+    font-size: 14px;
+    font-weight: 40;
+}
+.input-material .form-control:focus ~ label, .input-material .form-control[value]:not([value=""]) ~ label {
+    top: -25px;
+    font-size: 14px;
+    color: #525252;
+    font-weight: 500; 
+}
+.input-material .form-control:focus, .input-material .form-control[value]:not([value=""]) {
+    border-bottom-color: #525252;
+    color: black; 
+}
+
+.Form-container button{
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+
+.modal-content{
+    width: 700px;
+    margin: auto;
+}
